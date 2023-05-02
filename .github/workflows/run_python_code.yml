@@ -1,11 +1,11 @@
-name: Run Python Code
+name: Run Python Code and Deploy
 
 on:
   schedule:
     - cron: '0 */1 * * *' # 매 시간 실행
 
 jobs:
-  run-code:
+  run-code-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,12 @@ jobs:
           git add .
           git commit -m "Update articles.json"
           git push
+
+      - name: Deploy to Cafe24 Web Hosting via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: "public_html/www/"
+          exclude: ".git*"

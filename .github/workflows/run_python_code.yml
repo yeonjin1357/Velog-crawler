@@ -45,7 +45,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: public_html/www/
-          exclude: '**/*, !articles.json'
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
         env:
           pythonLocation: /opt/hostedtoolcache/Python/3.11.3/x64
           LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.3/x64/lib

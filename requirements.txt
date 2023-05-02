@@ -1,4 +1,4 @@
-aiohttp==3.8.1
+aiohttp
 aiosignal==1.2.0
 anyio==3.6.1
 apiclient==1.0.4
@@ -22,7 +22,7 @@ google-api-python-client==2.52.0
 google-auth==2.9.1
 google-auth-httplib2==0.1.0
 googleapis-common-protos==1.56.4
-greenlet==1.1.2
+greenlet
 h11==0.13.0
 httplib2==0.20.4
 idna==3.3

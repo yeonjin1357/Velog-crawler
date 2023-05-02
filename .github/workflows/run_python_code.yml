@@ -35,7 +35,7 @@ jobs:
           git config user.email "actions@github.com"
           git add .
           git commit -m "Update articles.json"
-          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/Velog-crawler.git
+          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/Velog-crawler.git HEAD:main
 
       - name: Deploy to Cafe24 Web Hosting via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0

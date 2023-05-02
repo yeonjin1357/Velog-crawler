@@ -1,11 +1,12 @@
-name: Run Python Code and Deploy
+name: Run Python Code
 
 on:
   schedule:
     - cron: '0 */1 * * *' # 매 시간 실행
+  workflow_dispatch:
 
 jobs:
-  run-code-and-deploy:
+  run-code:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +18,10 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install dependencies
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential libffi-dev
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt

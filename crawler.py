@@ -44,7 +44,7 @@ class Article:
             head = elem.xpath("a[1]")
         date = elem.xpath("div[2]/span")[0].text
         context = elem.xpath("p")[0].text
-        thumbnail = elem.xpath("a[1]/div/@style")[0].replace("background-image: url(", "").replace(");", "")
+        thumbnail = elem.xpath("a[1]/div/img/@src")[0]
         self.href = head[0].attrib.get("href")
         self.headline = head[0].xpath("h2")[0].text
         self.context = context

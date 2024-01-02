@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 from lxml import etree
 
-URL = "https://velog.io/search?q=yeonjin1357"
+URL = "https://velog.io/@yeonjin1357"
 ARTICLE_SELECTOR = '//*[@id="root"]/div[2]/div[3]/div[4]/div[3]/div/div'
 
 class Crawler:

@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as bs
 from lxml import etree
 
 URL = "https://velog.io/@yeonjin1357"
-ARTICLE_SELECTOR = '//*[@id="root"]/div[2]/div[3]/div[4]/div[3]/div/div'
+ARTICLE_SELECTOR = '//*[@id="html"]/body/div/div[1]/div[2]/main/section/div[2]/div[2]'
 
 class Crawler:
     def __init__(self):

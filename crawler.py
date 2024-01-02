@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup as bs
 from lxml import etree
 
-URL = "https://velog.io/lists/liked"
-ARTICLE_SELECTOR = '//*[@id="root"]/div[2]/div[3]/div[2]/div/div'
+URL = "https://velog.io/@yeonjin1357"
+ARTICLE_SELECTOR = '//*[@id="root"]/div[2]/div[3]/div[4]/div[3]/div/div'
 
 class Crawler:
     def __init__(self):
@@ -42,11 +42,11 @@ class Article:
         head: list[etree._Element] = elem.xpath("a[2]")
         if not head:
             head = elem.xpath("a[1]")
-        date = elem.xpath("div/div/span")[0].text
-        context = elem.xpath("div/a/div/p")[0].text
+        date = elem.xpath("div[2]/span")[0].text
+        context = elem.xpath("p")[0].text
         thumbnail = elem.xpath("a[1]/div/img/@src")[0]
         self.href = head[0].attrib.get("href")
-        self.headline = elem.xpath("div/a/h4")[0].text
+        self.headline = head[0].xpath("h2")[0].text
         self.context = context
         self.date = date
         self.tags = self.get_tags(elem)

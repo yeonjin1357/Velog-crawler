@@ -5,7 +5,7 @@ from lxml import etree
 
 URL = "https://velog.io/@yeonjin1357"
 # ARTICLE_SELECTOR 수정 필요
-ARTICLE_SELECTOR = 'body/div/div/div[2]/main/section/div[2]/div[2]'
+ARTICLE_SELECTOR = 'body/div/div/div[2]/main/section/div[2]/div[2]/div'
 
 class Crawler:
     def __init__(self):

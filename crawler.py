@@ -79,7 +79,7 @@ class Article:
 def get_articles(driver):
     articles = []
     time.sleep(3)  # 3초간 대기
-    article_elements = driver.find_elements(By.CLASS_NAME, "FlatPostCard_block__a1qM7")
+    article_elements = driver.find_elements(By.CLASS_NAME, "FlatPostCard_block__a1qM72")
     for element in article_elements:
         articles.append(Article(element))
     return articles

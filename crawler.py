@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as bs
 from lxml import etree
 
 URL = "https://velog.io/@yeonjin1357"
-ARTICLE_SELECTOR = '//*[@id="html"]/body/div/div[1]/div[2]/main/section/div[2]/div[2]/div[1]'
+ARTICLE_SELECTOR = '//*[contains(@class, "FlatPostCard_block__")]'
 
 class Crawler:
     def __init__(self):
@@ -20,11 +20,11 @@ htmlparser = etree.HTMLParser()
 
 class Article:
     def __init__(self, elem: etree._Element):
-        self.href = elem.xpath(".//a/@href")[0]
+        self.href = elem.xpath(".//a[1]/@href")[0]
         self.headline = elem.xpath(".//h2/text()")[0].strip()
         self.context = elem.xpath(".//p/text()")[0].strip()
         self.date = elem.xpath(".//div[contains(@class, 'FlatPostCard_subInfo__')]/span[1]/text()")[0].strip()
-        self.thumbnail = elem.xpath(".//img/@src")[0].strip()
+        self.thumbnail = elem.xpath(".//a[1]/div/img/@src")[0].strip()
         self.tags = self.get_tags(elem)
 
     def to_dict(self):

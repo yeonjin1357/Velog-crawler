@@ -1,8 +1,9 @@
 import json
 from selenium import webdriver
+from selenium.webdriver.commom.by import By
 from selenium.webdriver.chrome.service import Service  # Service 클래스를 임포트
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 URL = "https://velog.io/@yeonjin1357"
 

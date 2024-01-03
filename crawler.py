@@ -50,7 +50,6 @@ class Article:
 
 def get_articles(driver):
     articles = []
-    time.sleep(3)  # 3초간 대기
     article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_block__']")
     for element in article_elements:
         articles.append(Article(element))

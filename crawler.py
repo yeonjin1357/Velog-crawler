@@ -1,8 +1,8 @@
 import json
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service  # Service 클래스를 임포트
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-
 
 URL = "https://velog.io/@yeonjin1357"
 
@@ -39,8 +39,9 @@ def get_articles():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
 
-    # webdriver-manager를 사용하여 ChromeDriver를 자동으로 설정
-    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
+    # ChromeDriverManager를 사용하여 Service 객체를 생성합니다.
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
 
     driver.get(URL)
     articles = []

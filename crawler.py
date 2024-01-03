@@ -35,9 +35,6 @@ class Article:
         self.context = web_element.find_element(By.CSS_SELECTOR, "p").text
         self.date = web_element.find_element(By.CSS_SELECTOR, "div > span").text
         self.tags = [tag.text for tag in web_element.find_elements(By.CSS_SELECTOR, "div > a")]
-        # 댓글 수와 하트 수를 추출하는 코드는 페이지에 따라 수정해야 할 수 있습니다.
-        self.comments = int(web_element.find_element(By.XPATH, "div[2]/div/span[1]").text)
-        self.hearts = int(web_element.find_element(By.XPATH, "div[2]/div/span[3]").text)
 
     def to_dict(self):
         return {
@@ -53,6 +50,7 @@ class Article:
 
 def get_articles(driver):
     articles = []
+    time.sleep(3)  # 3초간 대기
     article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_block__']")
     for element in article_elements:
         articles.append(Article(element))

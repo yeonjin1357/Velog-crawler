@@ -43,7 +43,9 @@ def get_articles():
     options.add_argument("--remote-debugging-port=9222")  # 추가된 옵션
 
     # ChromeDriverManager를 사용하여 Service 객체를 생성합니다.
-    driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
+    # ChromeDriver의 경로를 현재 디렉토리로 지정합니다.
+    service = Service('./chromedriver')
+    driver = webdriver.Chrome(service=service, options=options)
 
     driver.get(URL)
     articles = []

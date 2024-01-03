@@ -22,7 +22,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libffi-dev
-          sudo apt-get install -y chromium-driver  # ChromeDriver 설치
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get install -y google-chrome-stable
 
       - name: Install Python dependencies
         run: |
@@ -40,6 +43,7 @@ jobs:
           git add .
           git commit -m "Update articles.json"
           git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/Velog-crawler.git HEAD:main
+
       - name: Deploy to Cafe24 Web Hosting via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

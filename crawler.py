@@ -34,8 +34,12 @@ class Article:
 def get_articles():
     options = Options()
     options.headless = True
-    options.add_argument("--no-sandbox")  # Sandbox 비활성화
-    options.add_argument("--disable-dev-shm-usage")  # 공유 메모리 사용 제한 해제
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")  # GPU 하드웨어 가속 비활성화
+    options.add_argument("--disable-extensions")  # 확장 프로그램 비활성화
+    options.add_argument("--disable-setuid-sandbox")
+    options.add_argument("--remote-debugging-port=9222")  # 원격 디버깅 포트 설정
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     driver.get(URL)

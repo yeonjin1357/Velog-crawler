@@ -53,7 +53,7 @@ class Article:
 
 def get_articles(driver):
     articles = []
-    article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_container__']")
+    article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_block__']")
     for element in article_elements:
         articles.append(Article(element))
     return articles

@@ -1,10 +1,31 @@
 import json
 from selenium import webdriver
-from selenium.webdriver.common.by import By  # By 클래스 임포트
-from selenium.webdriver.chrome.service import Service  # Service 클래스를 임포트
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+import chromedriver_autoinstaller
+from pyvirtualdisplay import Display
 
+# 가상 디스플레이 설정
+display = Display(visible=0, size=(1920, 1080))  
+display.start()
+
+# ChromeDriver 자동 설치
+chromedriver_autoinstaller.install()
+
+# Chrome 옵션 설정
+chrome_options = Options()
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-setuid-sandbox")
+chrome_options.add_argument("--window-size=1920x1080")
+chrome_options.add_argument("--remote-debugging-port=9222")
+
+# WebDriver 초기화
+driver = webdriver.Chrome(options=chrome_options)
 URL = "https://velog.io/@yeonjin1357"
+driver.get(URL)
 
 class Article:
     def __init__(self, web_element):
@@ -30,31 +51,11 @@ class Article:
             "hearts": self.hearts
         }
 
-def get_articles():
-    # Selenium 옵션 설정
-    options = Options()
-    options.headless = True
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-setuid-sandbox")
-    options.add_argument("--window-size=1920x1080")
-    options.add_argument("--remote-debugging-port=9222")  # 추가된 옵션
-
-    # ChromeDriverManager를 사용하여 Service 객체를 생성합니다.
-    # ChromeDriver의 경로를 현재 디렉토리로 지정합니다.
-    service = Service('./chromedriver')
-    driver = webdriver.Chrome(service=service, options=options)
-
-    driver.get(URL)
+def get_articles(driver):
     articles = []
-    
-    article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_container__']")  # CSS 선택자는 페이지에 따라 수정해야 합니다.
+    article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_container__']")
     for element in article_elements:
         articles.append(Article(element))
-
-    driver.quit()
     return articles
 
 def to_json(data):
@@ -63,9 +64,11 @@ def to_json(data):
 
 if __name__ == "__main__":
     try:
-        articles = get_articles()
+        articles = get_articles(driver)
         article_data = [article.to_dict() for article in articles]
         to_json(article_data)
     except Exception as e:
         print("오류 발생:", e)
-        # 필요한 경우 추가적인 예외 처리를 수행합니다.
+    finally:
+        driver.quit()
+        display.stop()

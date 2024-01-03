@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By  # By 클래스 임포트
 from selenium.webdriver.chrome.service import Service  # Service 클래스를 임포트
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 
 URL = "https://velog.io/@yeonjin1357"
 
@@ -44,8 +43,7 @@ def get_articles():
     options.add_argument("--remote-debugging-port=9222")  # 추가된 옵션
 
     # ChromeDriverManager를 사용하여 Service 객체를 생성합니다.
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
 
     driver.get(URL)
     articles = []

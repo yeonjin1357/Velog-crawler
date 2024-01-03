@@ -31,37 +31,37 @@ driver.get(URL)
 class Article:
     def __init__(self, web_element):
         try:
-            self.href = web_element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
+            self.href = web_element.find_element(By.XPATH, "/a[1]").get_attribute("href")
         except Exception as e:
             self.href = None
             print(f"Error retrieving href: {e}")
 
         try:
-            self.thumbnail = web_element.find_element(By.CSS_SELECTOR, "a > img").get_attribute("src")
+            self.thumbnail = web_element.find_element(By.XPATH, "/a[1]/img").get_attribute("src")
         except Exception as e:
             self.thumbnail = None
             print(f"Error retrieving thumbnail: {e}")
 
         try:
-            self.headline = web_element.find_element(By.CSS_SELECTOR, "a > h2").text
+            self.headline = web_element.find_element(By.XPATH, "/a[2]/h2").text
         except Exception as e:
             self.headline = None
             print(f"Error retrieving headline: {e}")
 
         try:
-            self.context = web_element.find_element(By.CSS_SELECTOR, "p").text
+            self.context = web_element.find_element(By.XPATH, "/p").text
         except Exception as e:
             self.context = None
             print(f"Error retrieving context: {e}")
 
         try:
-            self.date = web_element.find_element(By.CSS_SELECTOR, "div > span").text
+            self.date = web_element.find_element(By.XPATH, "/div[2]/span[1]").text
         except Exception as e:
             self.date = None
             print(f"Error retrieving date: {e}")
 
         try:
-            self.tags = [tag.text for tag in web_element.find_elements(By.CSS_SELECTOR, "div > a")]
+            self.tags = [tag.text for tag in web_element.find_elements(By.XPATH, "/div[1]/a")]
         except Exception as e:
             self.tags = []
             print(f"Error retrieving tags: {e}")
@@ -79,7 +79,7 @@ class Article:
 def get_articles(driver):
     articles = []
     time.sleep(3)  # 3초간 대기
-    article_elements = driver.find_elements(By.CLASS_NAME, "FlatPostCard_block__a1qM72")
+    article_elements = driver.find_elements(By.XPATH, "/html/body/div/div[1]/div[2]/main/section/div[2]/div[2]/div")
     for element in article_elements:
         articles.append(Article(element))
     return articles

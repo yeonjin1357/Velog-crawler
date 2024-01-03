@@ -1,5 +1,6 @@
 import json
 from selenium import webdriver
+from selenium.webdriver.common.by import By  # By 클래스 임포트
 from selenium.webdriver.chrome.service import Service  # Service 클래스를 임포트
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
@@ -58,6 +59,10 @@ def to_json(data):
         file.write(json.dumps(data, indent=4, ensure_ascii=False))
 
 if __name__ == "__main__":
-    articles = get_articles()
-    article_data = [article.to_dict() for article in articles]
-    to_json(article_data)
+    try:
+        articles = get_articles()
+        article_data = [article.to_dict() for article in articles]
+        to_json(article_data)
+    except Exception as e:
+        print("오류 발생:", e)
+        # 필요한 경우 추가적인 예외 처리를 수행합니다.

@@ -37,31 +37,31 @@ class Article:
             print(f"Error retrieving href: {e}")
 
         try:
-            self.thumbnail = web_element.find_element(By.XPATH, "/a[1]/img").get_attribute("src")
+            self.thumbnail = web_element.find_element(By.XPATH, "a[1]/img").get_attribute("src")
         except Exception as e:
             self.thumbnail = None
             print(f"Error retrieving thumbnail: {e}")
 
         try:
-            self.headline = web_element.find_element(By.XPATH, "/a[2]/h2").text
+            self.headline = web_element.find_element(By.XPATH, "a[2]/h2").text
         except Exception as e:
             self.headline = None
             print(f"Error retrieving headline: {e}")
 
         try:
-            self.context = web_element.find_element(By.XPATH, "/p").text
+            self.context = web_element.find_element(By.XPATH, "p").text
         except Exception as e:
             self.context = None
             print(f"Error retrieving context: {e}")
 
         try:
-            self.date = web_element.find_element(By.XPATH, "/div[2]/span[1]").text
+            self.date = web_element.find_element(By.XPATH, "div[2]/span[1]").text
         except Exception as e:
             self.date = None
             print(f"Error retrieving date: {e}")
 
         try:
-            self.tags = [tag.text for tag in web_element.find_elements(By.XPATH, "/div[1]/a")]
+            self.tags = [tag.text for tag in web_element.find_elements(By.XPATH, "div[1]/a")]
         except Exception as e:
             self.tags = []
             print(f"Error retrieving tags: {e}")

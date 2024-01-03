@@ -58,3 +58,4 @@ watchdog==2.1.9
 yarl==1.8.1
 selenium
 webdriver-manager
+chromedriver_autoinstaller

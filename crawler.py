@@ -38,7 +38,10 @@ def get_articles():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
-    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-setuid-sandbox")
+    options.add_argument("--window-size=1920x1080")
+    options.add_argument("--remote-debugging-port=9222")  # 추가된 옵션
 
     # ChromeDriverManager를 사용하여 Service 객체를 생성합니다.
     service = Service(ChromeDriverManager().install())

@@ -31,7 +31,7 @@ driver.get(URL)
 class Article:
     def __init__(self, web_element):
         try:
-            self.href = web_element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
+            self.href = web_element.find_element(By.TAG_NAME, "a").get_attribute("href")
         except Exception as e:
             self.href = None
             print(f"Error retrieving href: {e}")

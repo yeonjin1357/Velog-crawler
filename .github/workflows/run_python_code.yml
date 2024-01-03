@@ -2,7 +2,7 @@ name: Run Python Code
 
 on:
   schedule:
-    - cron: '0 */24 * * *' # 24마다 시간 실행
+    - cron: "0 */24 * * *" # 매 24시간마다 실행
   workflow_dispatch:
 
 jobs:
@@ -19,14 +19,18 @@ jobs:
           python-version: 3.9
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential libffi-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libffi-dev
+          sudo apt-get install -y chromium-driver  # ChromeDriver 설치
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Run Python script
-        run: python crawler.py # 이곳에 실제 파이썬 파일명을 적어주세요.
+        run: python crawler.py # 실제 파이썬 파일명을 사용
 
       - name: Commit and push changes
         if: steps.changed-files.outputs.files_changed == 'true'

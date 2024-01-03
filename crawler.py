@@ -40,7 +40,7 @@ def get_articles():
     options.add_argument("--window-size=1920,1080")
 
     # webdriver-manager를 사용하여 ChromeDriver를 자동으로 설정
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
 
     driver.get(URL)
     articles = []

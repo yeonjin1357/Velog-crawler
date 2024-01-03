@@ -45,8 +45,6 @@ class Article:
             "date": self.date,
             "tags": self.tags,
             "thumbnail": self.thumbnail,
-            "comments": self.comments,
-            "hearts": self.hearts
         }
 
 def get_articles(driver):

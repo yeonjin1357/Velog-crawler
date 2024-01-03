@@ -31,7 +31,7 @@ driver.get(URL)
 class Article:
     def __init__(self, web_element):
         try:
-            self.href = web_element.find_element(By.TAG_NAME, "a").get_attribute("href")
+            self.href = web_element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
         except Exception as e:
             self.href = None
             print(f"Error retrieving href: {e}")
@@ -79,7 +79,7 @@ class Article:
 def get_articles(driver):
     articles = []
     time.sleep(3)  # 3초간 대기
-    article_elements = driver.find_elements(By.CSS_SELECTOR, "div[class^='FlatPostCard_block__']")
+    article_elements = driver.find_elements(By.CLASS_NAME, "FlatPostCard_block__a1qM7")
     for element in article_elements:
         articles.append(Article(element))
     return articles

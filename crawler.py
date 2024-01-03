@@ -40,6 +40,10 @@ def get_articles():
     options.add_argument("--disable-extensions")  # 확장 프로그램 비활성화
     options.add_argument("--disable-setuid-sandbox")
     options.add_argument("--remote-debugging-port=9222")  # 원격 디버깅 포트 설정
+    options.add_argument("start-maximized")
+    options.add_argument("lang=ko_KR")
+    options.add_argument('headless')
+    options.add_argument('window-size=1920x1080')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     driver.get(URL)

@@ -30,12 +30,41 @@ driver.get(URL)
 
 class Article:
     def __init__(self, web_element):
-        self.href = web_element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
-        self.thumbnail = web_element.find_element(By.CSS_SELECTOR, "a > img").get_attribute("src")
-        self.headline = web_element.find_element(By.CSS_SELECTOR, "a > h2").text
-        self.context = web_element.find_element(By.CSS_SELECTOR, "p").text
-        self.date = web_element.find_element(By.CSS_SELECTOR, "div > span").text
-        self.tags = [tag.text for tag in web_element.find_elements(By.CSS_SELECTOR, "div > a")]
+        try:
+            self.href = web_element.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
+        except Exception as e:
+            self.href = None
+            print(f"Error retrieving href: {e}")
+
+        try:
+            self.thumbnail = web_element.find_element(By.CSS_SELECTOR, "a > img").get_attribute("src")
+        except Exception as e:
+            self.thumbnail = None
+            print(f"Error retrieving thumbnail: {e}")
+
+        try:
+            self.headline = web_element.find_element(By.CSS_SELECTOR, "a > h2").text
+        except Exception as e:
+            self.headline = None
+            print(f"Error retrieving headline: {e}")
+
+        try:
+            self.context = web_element.find_element(By.CSS_SELECTOR, "p").text
+        except Exception as e:
+            self.context = None
+            print(f"Error retrieving context: {e}")
+
+        try:
+            self.date = web_element.find_element(By.CSS_SELECTOR, "div > span").text
+        except Exception as e:
+            self.date = None
+            print(f"Error retrieving date: {e}")
+
+        try:
+            self.tags = [tag.text for tag in web_element.find_elements(By.CSS_SELECTOR, "div > a")]
+        except Exception as e:
+            self.tags = []
+            print(f"Error retrieving tags: {e}")
 
     def to_dict(self):
         return {

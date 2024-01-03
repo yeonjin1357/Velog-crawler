@@ -1,9 +1,6 @@
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 URL = "https://velog.io/@yeonjin1357"
 
@@ -32,19 +29,16 @@ class Article:
         }
 
 def get_articles():
+    # Selenium 옵션 설정
     options = Options()
     options.headless = True
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")  # GPU 하드웨어 가속 비활성화
-    options.add_argument("--disable-extensions")  # 확장 프로그램 비활성화
-    options.add_argument("--disable-setuid-sandbox")
-    options.add_argument("--remote-debugging-port=9222")  # 원격 디버깅 포트 설정
-    options.add_argument("start-maximized")
-    options.add_argument("lang=ko_KR")
-    options.add_argument('headless')
-    options.add_argument('window-size=1920x1080')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
+
+    # ChromeDriver 경로 지정 (GitHub Actions 환경에 맞게 설정)
+    driver = webdriver.Chrome(options=options, executable_path='/usr/local/bin/chromedriver')
 
     driver.get(URL)
     articles = []

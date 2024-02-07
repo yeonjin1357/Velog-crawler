@@ -79,7 +79,7 @@ class Article:
 def get_articles(driver):
     articles = []
     time.sleep(3)  # 3초간 대기
-    article_elements = driver.find_elements(By.XPATH, "/html/body/div/div[1]/div[2]/main/section/div[2]/div[2]/div")
+    article_elements = driver.find_elements(By.XPATH, "/html/body/div/div[1]/div[2]/main/div/section/div[2]/div[2]/div")
     for element in article_elements:
         articles.append(Article(element))
     return articles

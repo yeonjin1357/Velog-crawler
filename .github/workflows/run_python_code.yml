@@ -1,4 +1,4 @@
-name: Run Python Code
+name: Run Python Code and Update Portfolio
 
 on:
   schedule:
@@ -6,12 +6,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-code:
+  run-code-and-update-portfolio:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out Velog-crawler repository code
         uses: actions/checkout@v2
+        with:
+          path: 'Velog-crawler'
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -30,30 +32,30 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt # requirements.txt에 chromedriver_autoinstaller와 pyvirtualdisplay 포함
+        working-directory: ./Velog-crawler
 
       - name: Run Python script
         run: python crawler.py
+        working-directory: ./Velog-crawler
 
-      - name: Commit and push changes
-        if: steps.changed-files.outputs.files_changed == 'true'
+      # 여기서부터 Portfolio 레포지토리에 변경사항을 직접 push하는 과정을 추가합니다.
+      - name: Check out Portfolio repository
+        uses: actions/checkout@v2
+        with:
+          repository: 'yeonjin1357/portfolio'
+          token: ${{ secrets.GH_TOKEN }}
+          path: 'portfolio'
+
+      - name: Copy updated articles.json to Portfolio
+        run: |
+          cp Velog-crawler/articles.json portfolio/utils/data/articles.json
+
+      - name: Commit and push updates to Portfolio
+        working-directory: ./portfolio
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update articles.json"
-          git push https://${{ secrets.GH_TOKEN }}@github.com/yeonjin1357/Velog-crawler.git HEAD:main
+          git add utils/data/articles.json
+          git commit -m "Automatically update articles.json from Velog-crawler"
+          git push
 
-      - name: Deploy to Cafe24 Web Hosting via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: public_html/www/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-        env:
-          pythonLocation: /opt/hostedtoolcache/Python/3.11.3/x64
-          LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.3/x64/lib

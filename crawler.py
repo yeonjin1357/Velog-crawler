@@ -82,7 +82,6 @@ class Article:
 
         try:
             self.date = web_element.find_element(By.XPATH, "div[2]/span[1]").text
-            self.date = parse_date(date_str)
         except Exception as e:
             self.date = None
             print(f"Error retrieving date: {e}")

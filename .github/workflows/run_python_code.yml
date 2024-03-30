@@ -47,14 +47,14 @@ jobs:
 
       - name: Copy updated articles.json to Portfolio
         run: |
-          cp Velog-crawler/articles.json portfolio/utils/data/articles.json
+          cp Velog-crawler/articles.json portfolio/public/data/articles.json
 
       - name: Commit and push updates to Portfolio
         working-directory: ./portfolio
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add utils/data/articles.json
+          git add public/data/articles.json
           git commit -m "Automatically update articles.json from Velog-crawler"
           git push
 
